@@ -44,16 +44,26 @@ def test_get_board():
     set_board(board1)
     assert board1 == get_board()
     #eventually add at least one more test with another board
+    set_board(board2)
+    assert board2 == get_board()
 
 def test_string_to_location():
     with pytest.raises(ValueError):
         string_to_location('X3')
+        string_to_location('T68')
     assert string_to_location('A1') == (0,0)
     #eventually add at least one more exception test and two more
     #test with correct inputs
+    assert string_to_location('A2') == (0, 1)
+    assert string_to_location('D4') == (3, 3)
 
 def test_location_to_string():
+    with pytest.raises(ValueError):
     # Replace with tests
+        location_to_string((6,6))
+        location_to_string((2,6))
+    assert location_to_string((0,0)) == 'A1'
+    assert location_to_string((4,4)) == 'E5'
 
 def test_at():
     # Replace with tests
