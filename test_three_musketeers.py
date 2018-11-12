@@ -15,18 +15,30 @@ board1 =  [ [_, _, _, M, _],
             [_, R, _, _, _],
             [_, _, _, R, _] ]
 
+board2 =  [ [_, _, _, _, _],
+            [_, _, _, M, _],
+            [_, R, M, R, _],
+            [_, R, _, _, _],
+            [_, _, _, R, _] ]
+
 def test_create_board():
     create_board()
     assert at((0,0)) == R
     assert at((0,4)) == M
     #eventually add at least two more test cases
+    assert at((2, 2)) == M
+    assert at((3, 3)) == R
 
 def test_set_board():
     set_board(board1)
     assert at((0,0)) == _
     assert at((1,2)) == R
-    assert at((1,3)) == M    
+    assert at((1,3)) == M
     #eventually add some board2 and at least 3 tests with it
+    set_board(board2)
+    assert at((0, 3)) == _
+    assert at((1, 2)) == _
+    assert at((3, 3)) == R
 
 def test_get_board():
     set_board(board1)
