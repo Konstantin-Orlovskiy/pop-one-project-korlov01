@@ -67,9 +67,19 @@ def test_location_to_string():
 
 def test_at():
     # Replace with tests
+    set_board(board1)
+    assert at((0, 0)) == _
+    assert at((1, 2)) == R
+    assert at((1, 3)) == M
 
 def test_all_locations():
     # Replace with tests
+    allocations = []
+    for i in range (0,5):
+        for j in range (0,5):
+            allocations += [i,j]
+    assert test_all_locations() == allocations
+
 
 def test_adjacent_location():
     # Replace with tests
