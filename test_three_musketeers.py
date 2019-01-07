@@ -54,6 +54,8 @@ def test_string_to_location():
     assert string_to_location('A1') == (0,0)
     #eventually add at least one more exception test and two more
     #test with correct inputs
+    with pytest.raises(ValueError):
+        string_to_location('$:^')
     assert string_to_location('A2') == (0, 1)
     assert string_to_location('D4') == (3, 3)
 
@@ -68,27 +70,52 @@ def test_location_to_string():
 def test_at():
     # Replace with tests
     set_board(board1)
+    with pytest.raises(ValueError):
+        at((7, 8))
+        at((1, 35))
     assert at((0, 0)) == _
     assert at((1, 2)) == R
-    assert at((1, 3)) == M
+    assert at((2, 2)) == M
+    
 
 def test_all_locations():
     # Replace with tests
     allocations = []
     for i in range (0,5):
         for j in range (0,5):
-            allocations += [i,j]
+            allocations.append((i,j))
     assert test_all_locations() == allocations
 
 
 def test_adjacent_location():
     # Replace with tests
+    with pytest.raises(ValueError):
+        adjacent_location((1,0),up)
+        adjacent_location((4,2),down)
+        adjacent_location((0,0),left)
+        adjacent_location((0,4),right)
+    assert adjacent_location((0,0),right) == (0,1)
+    assert adjacent_location((1,2),down) == (2,2)
+    assert adjacent_location((4,3),left) == (4,2)
+    assert adjacent_location((3,3),up) == (2,3)
     
 def test_is_legal_move_by_musketeer():
     # Replace with tests
+    with pytest.raises(ValueError):
+        at(location) != 'M'
+    set_board(board1)
+    assert is_legal_move_by_musketeer((0,3),down) == False
+    assert is_legal_move_by_musketeer((1,3),left) == True
+    assert is_legal_move_by_musketeer((2,2),right) == True
     
 def test_is_legal_move_by_enemy():
     # Replace with tests
+    with pytest.raises(ValueError):
+        at(location) != 'R'
+    set_board(board1)
+    assert is_legal_move_by_enemy((1,2),right) == False
+    assert is_legal_move_by_enemy((1,2),left) == True
+    assert is_legal_move_by_enemy((3,1),up) == False
 
 def test_is_legal_move():
     # Replace with tests
