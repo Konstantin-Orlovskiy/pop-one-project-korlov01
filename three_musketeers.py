@@ -43,7 +43,10 @@ def string_to_location(s):
        between '1' and '5' for s[1]
        """
     # Replace with code
-    return (0,4)
+    s_letter = {'A':0,'B':1,'C':2,'D':3,'E':4}
+    s_number = {'1':0,'2':1,'3':2,'4':3,'5':4}
+    s_location = (s_letter[s[0]],s_number[s[1]])
+    return s_location
     
 def location_to_string(location):
     """Returns the string representation of a location.
@@ -51,7 +54,9 @@ def location_to_string(location):
     ValueError exception if the input is outside of the correct range
     """
     # Replace with code
-    return ('A5')
+    location_num1 = {0:'A',1:'B',2:'C',3:'D',4:'E'}
+    location_num2 = {0:'1',1:'2',2:'3',4:'D',5:'E'}
+    return (location_num1[location[0]]+location_num2[location[1]])
 
 def at(location):
     """Returns the contents of the board at the given location.
@@ -73,14 +78,24 @@ def adjacent_location(location, direction):
        You can assume that input will always be in correct range."""
     (row, column) = location
     # Replace with code
-    return (0,4)
+    if direction == 'left':
+        column -= 1
+    elif direction =='right':
+        column += 1
+    elif direction == 'up':
+        row -= 1
+    elif direction == 'down':
+        row += 1
+    return (row, column)
+    
 
 def is_legal_move_by_musketeer(location, direction):
     """Tests if the Musketeer at the location can move in the direction.
     You can assume that input will always be in correct range. Raises
     ValueError exception if at(location) is not 'M'"""
     # Replace with code
-    return True
+    
+    
 
 def is_legal_move_by_enemy(location, direction):
     """Tests if the enemy at the location can move in the direction.
