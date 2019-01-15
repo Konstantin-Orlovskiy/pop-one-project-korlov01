@@ -94,7 +94,8 @@ def is_legal_move_by_musketeer(location, direction):
     You can assume that input will always be in correct range. Raises
     ValueError exception if at(location) is not 'M'"""
     # Replace with code
-    
+    return (at(location)=='M' and is_within_board(location, direction) and
+            at(adjacent_location(location, direction)) == 'R')
     
 
 def is_legal_move_by_enemy(location, direction):
