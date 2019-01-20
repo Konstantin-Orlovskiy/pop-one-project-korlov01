@@ -170,13 +170,22 @@ def possible_moves_from(location):
        location, returns the empty list, [].
        You can assume that input will always be in correct range."""
     # Replace with code
-    return ('left','right','up','down')
+    possible_moves = []
+    if at(location) == '-':
+        return possible_moves
+    else:
+        for direction in ('up','down','left','right'):
+            if is_legal_move(location, direction) == True:
+                possible_moves += [direction]
+        return possible_moves
+        
 
 def is_legal_location(location):
     """Tests if the location is legal on a 5x5 board.
     You can assume that input will always be a pair of integers."""
     # Replace with code
-    return True
+    return location in all_locations()
+    
     
 def is_within_board(location, direction):
     """Tests if the move stays within the boundaries of the board.
@@ -193,13 +202,23 @@ def all_possible_moves_for(player):
        (location, direction) tuples.
        You can assume that input will always be in correct range."""
     # Replace with code
-    return [((2,2),'left'),((2,2),'right')]
+    all_possible_moves = []
+    for location in all_locations():
+        if at(location) == player:
+            for move in possible_moves_from(location):
+                all_possible_moves += [(location,move)]
+    return all_possible_moves
+                
 
 def make_move(location, direction):
     """Moves the piece in location in the indicated direction.
     Doesn't check if the move is legal. You can assume that input will always
     be in correct range."""
-    pass # Replace with code
+    player = at(location)
+    new_location = adjacent_location(location, direction)
+    board[new_location[0]][new_location[1]] = player
+    board[location[0]][location[1]] = '-'
+    
 
 def choose_computer_move(who):
     """The computer chooses a move for a Musketeer (who = 'M') or an
@@ -207,12 +226,28 @@ def choose_computer_move(who):
        where a location is a (row, column) tuple as usual.
        You can assume that input will always be in correct range."""
     # Replace with code
-    return ((2,2),'left')
+    all_moves = []
+    for location in all_locations():
+        if at(location) == who:
+            for move in possible_moves_from(location):
+                all_moves += [(location, move)]
+    return all_moves[0]
+            
 
 def is_enemy_win():
     """Returns True if all 3 Musketeers are in the same row or column."""
     # Replace with code
-    return True
+    m_locations = []
+    for location in all_locations():
+        if at(location) == 'M':
+            m_locations += [location]
+    return (m_locations[0][0] == m_locations[1][0] and
+            m_locations[0][0] == m_locations[2][0]
+            ) or (
+                    m_locations[0][1] == m_locations[1][1] and 
+                    m_locations[0][1] == m_locations[2][1])
+            
+            
 
 #---------- Communicating with the user ----------
 #----you do not need to modify code below unless you find a bug

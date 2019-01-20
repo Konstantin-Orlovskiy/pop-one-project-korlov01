@@ -175,9 +175,9 @@ def test_has_some_legal_move_somewhere():
 def test_possible_moves_from():
     # Replace with tests
     set_board(board1)
-    assert possible_moves_from((0,0)) == ()
-    assert possible_moves_from((1,3)) == ('left')
-    assert possible_moves_from((2,2)) == ('up','left','right')
+    assert possible_moves_from((0,0)) == []
+    assert possible_moves_from((1,3)) == ['down','left']
+    assert possible_moves_from((2,2)) == ['up','left','right']
 
 def test_is_legal_location():
     # Replace with tests
@@ -187,19 +187,19 @@ def test_is_legal_location():
 
 def test_is_within_board():
     # Replace with tests
-    assert within_board((0,0), left) == False
-    assert within_board((3,3), right) == True
-    assert within_board((2,2), up) == True
-    assert within_board((4,1), down) == False
+    assert is_within_board((0,0), left) == False
+    assert is_within_board((3,3), right) == True
+    assert is_within_board((2,2), up) == True
+    assert is_within_board((4,1), down) == False
 
 def test_all_possible_moves_for():
     # Replace with tests
     set_board(board1)
     assert all_possible_moves_for(M) == [
-            ((1,3), 'left'),
             ((1,3), 'down'),
-            ((2,2), 'left'),
+            ((1,3), 'left'),
             ((2,2), 'up'),
+            ((2,2), 'left'),
             ((2,2), 'right')]
     set_board(board3)
     assert all_possible_moves_for(M) == [
@@ -208,8 +208,10 @@ def test_all_possible_moves_for():
     
 def test_make_move():
     # Replace with tests
-    make_move(location, direction)
-    assert at(location) == '-'
+    set_board(board1)
+    make_move((2,1), 'up')
+    assert at((2,1)) == '-'
+    assert at((1,1)) == 'R'
 
 def test_choose_computer_move():
     # Replace with tests; should work for both 'M' and 'R'
